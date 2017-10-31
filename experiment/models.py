@@ -1,8 +1,12 @@
 from django.db import models
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
+
 from PIL import Image as Img
 import StringIO
 
 # Create your models here.
+
 
 class UserInfo(models.Model):
     GENDER_CHOISES = (
@@ -48,6 +52,7 @@ class UserInfo(models.Model):
     def __str__(self):
         return "%s %s" % (self.lastname, self.firstname)
 
+
 class Stimul(models.Model):
     pos = models.PositiveIntegerField( u"позиция",
             default=0)
@@ -68,6 +73,7 @@ class Stimul(models.Model):
             status = u"скрыт"
         return "%s | %s" % (self.name, status)
 
+
 class ImageType(models.Model):
     pos = models.PositiveIntegerField( u"позиция",
             default=0)
@@ -80,10 +86,33 @@ class ImageType(models.Model):
     def __str__(self):
         return self.name
 
+
+def image_path(instance, filename):
+    filename = filename.replace(" ", "")
+    if len(filename) > 100:
+        filename = filename[:99]
+    return "{0}/{1}".format(instance.itype.id, filename)
+
+def optimize_image(obj):
+    img = Img.open(StringIO.StringIO(obj.image.read()))
+    if img.mode != 'RGB':
+        img = img.convert('RGB')
+    img_width = 500
+    img.thumbnail((img_width,
+                   img_width * obj.image.height / obj.image.width),
+                   Img.ANTIALIAS)
+    output = StringIO.StringIO()
+    img.save(output, format='JPEG', quality=80)
+    output.seek(0)
+    obj.image= InMemoryUploadedFile(output,'ImageField',
+            "%s.jpg" %obj.image.name.split('.')[0],
+            'image/jpeg', output.len, None)
+    return obj
+
 class Image(models.Model):
     itype = models.ForeignKey("ImageType", 
             on_delete=models.CASCADE)
-    image = models.ImageField()
+    image = models.ImageField(upload_to=image_path)
     
     class Meta:
         ordering = ['itype']
@@ -91,20 +120,18 @@ class Image(models.Model):
         verbose_name_plural = u"Изображения"
     
     def save(self, *args, **kwargs):
-        if self.image:
-            img = Img.open(StringIO.StringIO(self.image.read()))
-            if img.mode != 'RGB':
-                img = img.convert('RGB')
-            img.thumbnail((self.image.width/1.5,
-                           self.image.height/1.5),
-                           Img.ANTIALIAS)
-            output = StringIO.StringIO()
-            img.save(output, format='JPEG', quality=70)
-            output.seek(0)
-            self.image= InMemoryUploadedFile(output,'ImageField',
-                    "%s.jpg" %self.image.name.split('.')[0],
-                    'image/jpeg', output.len, None)
+        try:
+            this = Image.objects.get(id=self.id)
+            if this.image != self.image:
+                this.image.delete(save=False)
+                self = optimize_image(self)
+        except:
+            pass
         super(Image, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.itype.name
+
+@receiver(pre_delete, sender=Image)
+def image_delete(sender, instance, **kwargs):
+    instance.image.delete(False)
