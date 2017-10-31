@@ -3,7 +3,7 @@ from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 
 from PIL import Image as Img
-import StringIO
+from io import StringIO
 
 # Create your models here.
 
@@ -42,7 +42,7 @@ class UserInfo(models.Model):
     email = models.EmailField(u"электронная почта", max_length=254)
     phone = models.PositiveIntegerField( u"телефон", blank=True, null=True)
     cinema_freq = models.PositiveIntegerField( u"частота походов в кинотеатр", default=0)
-    cinema_genre = models.CharField( u"любимый жанр кино", max_lenght=140)
+    cinema_genre = models.CharField( u"любимый жанр кино", max_length=140)
 
     class Meta:
         ordering = ['lastname', 'firstname']
