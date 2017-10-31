@@ -83,10 +83,28 @@ class ImageType(models.Model):
 class Image(models.Model):
     itype = models.ForeignKey("ImageType", 
             on_delete=models.CASCADE)
-    img = models.ImageField()
+    image = models.ImageField()
+    
     class Meta:
         ordering = ['itype']
         verbose_name = u"Изображение"
         verbose_name_plural = u"Изображения"
+    
+    def save(self, *args, **kwargs):
+        if self.image:
+            img = Img.open(StringIO.StringIO(self.image.read()))
+            if img.mode != 'RGB':
+                img = img.convert('RGB')
+            img.thumbnail((self.image.width/1.5,
+                           self.image.height/1.5),
+                           Img.ANTIALIAS)
+            output = StringIO.StringIO()
+            img.save(output, format='JPEG', quality=70)
+            output.seek(0)
+            self.image= InMemoryUploadedFile(output,'ImageField',
+                    "%s.jpg" %self.image.name.split('.')[0],
+                    'image/jpeg', output.len, None)
+        super(Image, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.itype.name
