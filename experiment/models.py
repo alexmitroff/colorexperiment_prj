@@ -1,4 +1,6 @@
 from django.db import models
+from PIL import Image as Img
+import StringIO
 
 # Create your models here.
 
@@ -47,10 +49,13 @@ class UserInfo(models.Model):
         return "%s %s" % (self.lastname, self.firstname)
 
 class Stimul(models.Model):
-    pos
-    show
-    user
-    name
+    pos = models.PositiveIntegerField( u"позиция",
+            default=0)
+    show = models.BooleanField(u"доступен",
+            default=True)
+    user = models.ForeignKey("UserInfo",
+            on_delete=models.CASCADE ) 
+    name = models.CharField( u"Название", max_length=50)
 
     class Meta:
         ordering = ['show', 'pos']
@@ -62,3 +67,26 @@ class Stimul(models.Model):
         if self.show:
             status = u"скрыт"
         return "%s | %s" % (self.name, status)
+
+class ImageType(models.Model):
+    pos = models.PositiveIntegerField( u"позиция",
+            default=0)
+    name = models.CharField( u"Название", max_length=50)
+    class Meta:
+        ordering = ['pos']
+        verbose_name = u"Тип изображения"
+        verbose_name_plural = u"Типы изображений"
+    
+    def __str__(self):
+        return self.name
+
+class Image(models.Model):
+    itype = models.ForeignKey("ImageType", 
+            on_delete=models.CASCADE)
+    img = models.ImageField()
+    class Meta:
+        ordering = ['itype']
+        verbose_name = u"Изображение"
+        verbose_name_plural = u"Изображения"
+    def __str__(self):
+        return self.itype.name
