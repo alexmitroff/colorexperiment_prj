@@ -58,8 +58,6 @@ class Stimul(models.Model):
             default=0)
     show = models.BooleanField(u"доступен",
             default=True)
-    user = models.ForeignKey("UserInfo",
-            on_delete=models.CASCADE ) 
     name = models.CharField( u"Название", max_length=50)
 
     class Meta:
@@ -135,3 +133,19 @@ class Image(models.Model):
 @receiver(pre_delete, sender=Image)
 def image_delete(sender, instance, **kwargs):
     instance.image.delete(False)
+
+class Answer(models.Model):
+    pos = models.PositiveIntegerField( u"позиция",
+            default=0)
+    user = models.ForeignKey("UserInfo",
+            on_delete=models.CASCADE ) 
+    stimul = models.ForeignKey("Stimul",
+            on_delete=models.CASCADE ) 
+    image = models.ForeignKey("Image",
+            on_delete=models.CASCADE )
+    class Meta:
+        ordering = ['stimul','user','pos']
+        verbose_name = u'Ответ'
+        verbose_name_plural = u'Ответы'
+    def __srt__(self):
+        return "%s %s %s" % (self.stimul, self.user, self.image)
