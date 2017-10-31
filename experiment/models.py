@@ -9,7 +9,7 @@ class UserInfo(models.Model):
             )
 
     lastname = models.CharField( u"фамилия", max_length=50)
-    firstname
+    firstname 
     gender = models.IntegerField( u"пол", default=0, choices=GENDER_CHOISES )
     age
     edu_type
