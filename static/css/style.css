@@ -12,7 +12,8 @@ body{
     font-family: -apple-system, BlinkMacSystemFont,
                  "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
                  "Helvetica Neue", sans-serif;
-    background-color:#eee;             
+    background-color:#eee;
+    color:#444;
     }
 
 body > main{
@@ -20,7 +21,7 @@ body > main{
     padding:1rem;
 }
 
-body > main > form{
+body > main > form#sheet{
     width:25rem;
     margin:0 auto;
     display:flex;
@@ -30,6 +31,7 @@ body > main > form{
     box-shadow:0 2rem 5rem -2.5rem rgba(0,0,0,0.25),0rem 0.3rem 0.5rem -0.4rem rgba(0,0,0,0.4);
     background-color:white;
 }
+
 
 body > main > form label{
 }
@@ -67,4 +69,25 @@ body > main > form > p{
     justify-content:space-between;
     padding-bottom:1rem;
 }
+
+body > main > form > h2{
+    width:100%;
+   margin-bottom:2rem;
+   text-align:center;
+}
+
+form#images{
+    width:100%;
+    display:grid;
+    grid-gap:1rem;
+}
+
+form#images input{
+    display:none;
+}
+
+form#images label{
+display:block;
+}
+
 

@@ -2,11 +2,13 @@
 {% block main %}
 <form id="sheet">
     <div class="number"><span>1</span></div>
+    <h2>Заполните анкету</h2>
     {% csrf_token %}
     {{ form.as_p }}
 </form>
 
 <form id="images">
-    
+    <input id="i1" type="checkbox"> 
+    <label for="i1"><div></div></label>
 </form>
 {% endblock %}
