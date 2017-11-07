@@ -1,8 +1,12 @@
 {% extends 'base/base.html' %}
 {% block main %}
-<form action="{% url 'index' %}" method="post">
+<form id="sheet">
+    <div class="number"><span>1</span></div>
     {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit" />
+    {{ form.as_p }}
+</form>
+
+<form id="images">
+    
 </form>
 {% endblock %}
