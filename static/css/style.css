@@ -1,0 +1,45 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+}
+
+html{}
+
+body{
+    display:flex;
+    flex-direction:column;
+    font-family: -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+                 "Helvetica Neue", sans-serif;
+    }
+
+body > main{
+    flex-grow:1;
+}
+
+body > main > form{
+    width:20rem;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+}
+
+body > main > form > label{
+    margin-bottom:.5rem;
+}
+
+body > main > form > input,
+body > main > form > select,
+body > main > form > textarea{
+    margin-bottom:1rem;
+}
+
+body > main > form > textarea{
+    height:3rem;
+}
+
+body > main > form *{
+    display:block;
+}
