@@ -22,8 +22,8 @@ body > main{
 }
 
 body > main > form#sheet{
-    width:25rem;
-    margin:0 auto;
+    width:35rem;
+    margin:0 auto 3rem auto;
     display:flex;
     flex-direction:column;
     align-items:flex-start;
@@ -32,8 +32,13 @@ body > main > form#sheet{
     background-color:white;
 }
 
+input, select, textarea{
+    background:none;
+    border:.1rem solid #888;
+}
 
-body > main > form label{
+body > main > form#sheet label{
+    margin-right:2rem;
 }
 
 body > main > form input,
@@ -76,18 +81,33 @@ body > main > form > h2{
    text-align:center;
 }
 
-form#images{
+#images{
     width:100%;
     display:grid;
     grid-gap:1rem;
 }
 
-form#images input{
-    display:none;
+
+#images > div{
+    display:block;
 }
 
-form#images label{
-display:block;
+#images > div > div{
+    padding-top:67%;
+    cursor:pointer;
+    background-blend-mode:overlay;
+    background-color:black;
+    background-size:contain;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-image:url(http://dailycaller.com/wp-content/uploads/2017/10/Blade-Runner-2049-Trailer.png);
+    transition: all .3s ease-out 0s;
+}
+#images > div > div.active{
+    background-color:#eee;
+    background-blend-mode:normal;
 }
 
-
+#images > div > div:hover,
+#images > div > div:focus{
+}
