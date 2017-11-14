@@ -26,6 +26,11 @@ class UserInfo(models.Model):
             (3, u"Высшее профессиональное"),
             )
 
+    ART_CHOISES = (
+            (0, u"Нет"),
+            (1, u"Да"),
+            )
+
     lastname = models.CharField( u"фамилия", max_length=50)
     firstname = models.CharField( u"имя", max_length=50) 
     gender = models.IntegerField( u"пол", default=0, 
@@ -35,8 +40,8 @@ class UserInfo(models.Model):
             default=0, choices=EDU_TYPES_CHOISES )
     edu = models.IntegerField( u"образование", 
             default=0, choices=EDU_CHOISES)
-    art_exp = models.BooleanField(u"художественная подготовка",
-            default=False)
+    art_exp = models.PositiveIntegerField(u"художественная подготовка",
+            default=0, choices=ART_CHOISES)
     edu_prof = models.CharField( u"профиль подготовки", 
             max_length=140)
     email = models.EmailField(u"электронная почта", max_length=254)
