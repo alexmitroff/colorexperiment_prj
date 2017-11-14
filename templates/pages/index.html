@@ -7,11 +7,12 @@
     {{ form.as_p }}
 </form>
 
-<div id="images" style="grid-template-columns:repeat(5, 1fr)">
+<!--
+<div id="images" style="grid-template-columns:repeat({{img_count}}, 1fr)">
     <div><div id="i1" class="stimul active" onclick="addPosition(this);" data-pos="0"></div></div>
     <div><div id="i2" class="stimul active" onclick="addPosition(this);" data-pos="0"></div></div>
     <div><div id="i3" class="stimul active" onclick="addPosition(this);" data-pos="0"></div></div>
     <div><div id="i4" class="stimul active" onclick="addPosition(this);" data-pos="0"></div></div>
     <div><div id="i5" class="stimul active" onclick="addPosition(this);" data-pos="0"></div></div>
-</div>
+    </div> ->>
 {% endblock %}

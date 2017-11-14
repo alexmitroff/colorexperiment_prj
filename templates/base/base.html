@@ -11,23 +11,7 @@
         </main>
         <footer></footer>
     </body>
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script>
-	var count = 5;
-
-	function addPosition(x){
-    		var a =  document.getElementsByClassName("active");
-		var position = count - a;
-		x.dataset.pos = position;
-		x.classList.remove("active");
-	}
-
-	function reset(){
-		var s =  document.getElementsByClassName("stimul");
-		for(i=0, i<count, i++){
-			s[i].classList.add("active");
-			s[i].dataset.pos = 0;
-		};
-	}
-
     </script> 
 </html>    

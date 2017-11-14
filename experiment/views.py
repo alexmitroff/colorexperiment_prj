@@ -8,5 +8,6 @@ def index(request):
     form = UserInfoForm()
     var = {
             'form':form,
+            'img_count':5,
             }
     return render(request, template, var)
