@@ -13,5 +13,22 @@
     </body>
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script>
+	var count = {{img_count}};
+        var p = 0;	
+	$(document).ready(function(){
+		$('.stimul').click(function(){
+			p = p  + 1;
+			$(this).addClass('inactive');
+			$(this).data('pos', p).attr('data-pos', p);
+		});
+
+		$('#reset').click(function(){
+			$(".stimul").each(function(){
+				$(this).removeClass('inactive');
+				$(this).data('pos', 0).attr('data-pos', 0);
+				p = 0;
+			});
+		});
+	});
     </script> 
 </html>    

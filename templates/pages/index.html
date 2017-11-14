@@ -1,18 +1,24 @@
 {% extends 'base/base.html' %}
 {% block main %}
-<form id="sheet">
-    <div class="number"><span>1</span></div>
+<section class="card" id="profile">
+  <form id="sheet">
     <h2>Заполните анкету</h2>
     {% csrf_token %}
     {{ form.as_p }}
-</form>
-
-<!--
-<div id="images" style="grid-template-columns:repeat({{img_count}}, 1fr)">
-    <div><div id="i1" class="stimul active" onclick="addPosition(this);" data-pos="0"></div></div>
-    <div><div id="i2" class="stimul active" onclick="addPosition(this);" data-pos="0"></div></div>
-    <div><div id="i3" class="stimul active" onclick="addPosition(this);" data-pos="0"></div></div>
-    <div><div id="i4" class="stimul active" onclick="addPosition(this);" data-pos="0"></div></div>
-    <div><div id="i5" class="stimul active" onclick="addPosition(this);" data-pos="0"></div></div>
-    </div> ->>
+  </form>
+</section>
+<section class="card">
+  <h2>Выберите изображение, которое вам больше нравится</h2>
+  <div id="images" style="grid-template-columns:repeat({{img_count}}, 1fr)">
+    <div><div id="i1" class="stimul" data-pos="0"></div></div>
+    <div><div id="i2" class="stimul" data-pos="0"></div></div>
+    <div><div id="i3" class="stimul" data-pos="0"></div></div>
+    <div><div id="i4" class="stimul" data-pos="0"></div></div>
+    <div><div id="i5" class="stimul"() data-pos="0"></div></div>
+  </div>
+</section>
+<section id="actions">
+	<a href="#!" id="reset" class="btn btn-danger">Сбросить выбор</a>
+	<a href="#!" class="btn btn-submit">Отправить на сервер</a>
+</section>
 {% endblock %}

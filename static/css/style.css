@@ -1,3 +1,101 @@
+*{
+	margin:0;
+	padding:0;
+}
+
 body{
-	background-color:red;
+	color:#444;
+	display:flex;
+	flex-direction:column;
+	background-color:#eee;
+}
+
+body > main{
+	flex-grow:1;
+	padding:1rem;
+
+}
+
+.card{
+	background-color:white;
+	border:.1rem solid #ddd;
+	padding:1rem;
+	margin-bottom:2rem;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+h2{
+	margin-bottom:2rem;
+	text-align:center;
+}
+
+form p {
+	display:flex;
+	justify-content:space-between;
+}
+
+textarea,
+select,
+input{
+	background:none;
+	border:.1rem solid #ddd;
+	padding:.2rem;
+	margin-bottom:.5rem;
+}
+
+#profile{
+	width:35rem;
+}
+
+#images{
+	display:grid;
+	grid-gap:1rem;
+}
+
+.stimul{
+	padding-top:67%;
+	background-image:url('../imgs/default.jpg');
+	background-size:contain;
+	background-repeat:no-repeat;
+	background-position:center;
+	cursor:pointer;
+}
+.stimul:focus,
+.stumil:hover{
+	background-color:#eee;
+}
+
+#actions{
+	display:flex;
+	justify-content:center;
+}
+
+.btn{
+	padding:1rem 2rem;
+	border:.1rem solid #ddd;
+	color:white;
+	text-decoration:none;
+	margin-left:2rem;
+	text-transform:uppercase;
+}
+
+.btn:first-child{
+	margin-left:0;
+}
+
+.btn-danger{
+	background-color:#f44336;
+}
+.btn-danger:focus,
+.btn-danger:hover{
+	background-color:#b71c1c;
+}
+
+.btn-submit{
+	background-color:#4caf50;
+}
+.btn-submit:focus,
+.btn-submit:hover{
+	background-color:#1b5e20;
 }
