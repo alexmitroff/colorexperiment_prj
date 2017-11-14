@@ -66,6 +66,11 @@ input{
 	background-color:#eee;
 }
 
+.inactive{
+	background-color:#444;
+	background-blend-mode:multiply;
+}
+
 #actions{
 	display:flex;
 	justify-content:center;
