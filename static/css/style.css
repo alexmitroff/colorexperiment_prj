@@ -44,6 +44,10 @@ input{
 	margin-bottom:.5rem;
 }
 
+input[type=checkbox]{
+	display:none;
+}
+
 #profile{
 	width:35rem;
 }
@@ -54,21 +58,29 @@ input{
 }
 
 .stimul{
+	display:block;
+	position:relative;
 	padding-top:67%;
 	background-image:url('../imgs/default.jpg');
 	background-size:contain;
 	background-repeat:no-repeat;
 	background-position:center;
 	cursor:pointer;
+	border:.2rem solid white;
 }
+
 .stimul:focus,
 .stumil:hover{
 	background-color:#eee;
 }
 
-.inactive{
+input[type=checkbox]:checked + label{
 	background-color:#444;
 	background-blend-mode:multiply;
+}
+
+input[type=checkbox]:invalid + label{
+	border-color:red;
 }
 
 #actions{

@@ -14,21 +14,40 @@
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script>
 	var count = {{img_count}};
-        var p = 0;	
+        var p = 0;
+	function reset_images(){
+		$('input:checkbox:checked').prop('checked', false).prop('disabled', false).val(0);
+		p = 0;
+	}	
 	$(document).ready(function(){
-		$('.stimul').click(function(){
-			p = p  + 1;
-			$(this).addClass('inactive');
-			$(this).data('pos', p).attr('data-pos', p);
+		reset_images();
+
+		$('input[type=checkbox]').change(function(){
+			if(this.checked){
+				p++;
+				$(this).attr('value', p);
+				$(this).prop('disabled', true);
+			}
 		});
 
-		$('#reset').click(function(){
-			$(".stimul").each(function(){
-				$(this).removeClass('inactive');
-				$(this).data('pos', 0).attr('data-pos', 0);
-				p = 0;
-			});
+		$('#reset').click(function(){reset_images()});
+
+		$( "form" ).on( "submit", function( event ) {
+			  event.preventDefault();
+			  var profile = $('form').serializeArray();
+			  var req = {};
+			  profile.forEach(function(item, i, profile){
+				req[item.name] = item.value;
+			  });
+			  $( ':checkbox' ).each(function(){
+			  	var n = $(this).attr('name'),
+				    v = $(this).attr('value');				req[n] = v;
+			  });
+			  $.ajax(
+);
 		});
+
+
 	});
     </script> 
 </html>    
