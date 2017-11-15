@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% block main %}
+<h1>{{stimul.name}}</h1>
 <form id="sheet">
 <section class="card" id="profile">
     <h2>Заполните анкету</h2>
@@ -9,26 +10,15 @@
 <section class="card">
   <h2>Выберите изображение, которое вам больше нравится</h2>
   <div id="images" style="grid-template-columns:repeat({{img_count}}, 1fr)">
+	  {% for image in images %}
     <div>
-	    <input type="checkbox" name="i1" id="id_i1" value="0" required>
-	    <label for="id_i1" class="stimul"></label>
+	    <input type="checkbox" name="{{image.id}}" id="id_{{image.id}}" value="0" required>
+	    <label for="id_{{image.id}}" class="stimul"
+				  style="background-image(url('{{image.image.url}}'));"
+		    ></label>
     </div>
-    <div>
-	    <input type="checkbox" name="i2" id="id_i2" value="0" required>
-	    <label for="id_i2" class="stimul"></label>
-    </div>
-    <div>
-	    <input type="checkbox" name="i3" id="id_i3" value="0" required>
-	    <label for="id_i3" class="stimul"></label>
-    </div>
-    <div>
-	    <input type="checkbox" name="i4" id="id_i4" value="0" required>
-	    <label for="id_i4" class="stimul"></label>
-    </div>
-    <div>
-	    <input type="checkbox" name="i5" id="id_i5" value="0" required>
-	    <label for="id_i5" class="stimul"></label>
-    </div>
+    	{% empty %}
+	{% endfor %}
   </div>
 </section>
 <section id="actions">

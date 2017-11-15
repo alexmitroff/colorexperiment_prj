@@ -67,13 +67,13 @@ class Stimul(models.Model):
 
     class Meta:
         ordering = ['show', 'pos']
-        verbose_name = u"Информация о подопытном"
-        verbose_name_plural = u"Информация о подопытных"
+        verbose_name = u"Стимул"
+        verbose_name_plural = u"Стимулы"
     
     def __str__(self):
-        status = u"доступен"
+        status = u"скрыт"
         if self.show:
-            status = u"скрыт"
+            status = u"доступен"
         return "%s | %s" % (self.name, status)
 
 
@@ -113,6 +113,8 @@ def optimize_image(obj):
     return obj
 
 class Image(models.Model):
+    stimul = models.ForeignKey("Stimul",
+            on_delete=models.CASCADE, default=0 ) 
     itype = models.ForeignKey("ImageType", 
             on_delete=models.CASCADE)
     image = models.ImageField(upload_to=image_path)

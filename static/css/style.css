@@ -61,7 +61,6 @@ input[type=checkbox]{
 	display:block;
 	position:relative;
 	padding-top:67%;
-	background-image:url('../imgs/default.jpg');
 	background-size:contain;
 	background-repeat:no-repeat;
 	background-position:center;
@@ -104,6 +103,7 @@ input[type=checkbox]:invalid + label{
 .btn-danger{
 	background-color:#f44336;
 }
+
 .btn-danger:focus,
 .btn-danger:hover{
 	background-color:#b71c1c;
@@ -112,6 +112,7 @@ input[type=checkbox]:invalid + label{
 .btn-submit{
 	background-color:#4caf50;
 }
+
 .btn-submit:focus,
 .btn-submit:hover{
 	background-color:#1b5e20;

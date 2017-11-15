@@ -34,17 +34,26 @@
 
 		$( "form" ).on( "submit", function( event ) {
 			  event.preventDefault();
-			  var profile = $('form').serializeArray();
-			  var req = {};
+			  var profile = $('form').serializeArray(),
+			      req = {},
+			      imgs = {};
 			  profile.forEach(function(item, i, profile){
 				req[item.name] = item.value;
 			  });
 			  $( ':checkbox' ).each(function(){
 			  	var n = $(this).attr('name'),
-				    v = $(this).attr('value');				req[n] = v;
+				    v = $(this).attr('value');
+				    imgs[n] = v;
 			  });
-			  $.ajax(
-);
+			  req["images"] = imgs;
+			  req["stimul"] = {{ stimul.id }};
+			  $.ajax({
+				  url: "{% url 'submit' %}",
+				data:req,
+				method: "POST",
+			   	dataType: "json",
+				success: function(){},	
+			  });
 		});
 
 
