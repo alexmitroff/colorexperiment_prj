@@ -22,20 +22,19 @@ def index(request):
 def submit(request):
     if request.method == 'POST':
         print(request.POST)
-        stimul = Stimul.obkects.get(pk=int(request.POST['stimul']))
+        stimul = Stimul.objects.get(pk=int(request.POST['stimul']))
         profile, p_created = UserInfo.objects.get_or_create(
                 email = request.POST['email'],
                 defaults = {
                     'lastname':request.POST['lastname'],
                     'firstname':request.POST['firstname'],
-                    'gender':request.POST['gender'],
-                    'age':request.POST['age'],
-                    'edu_type':request.POST['edu_type'],
-                    'edu':request.POST['edu'],
-                    'art_exp':request.POST['art_exp'],
+                    'gender':int(request.POST['gender']),
+                    'age':int(request.POST['age']),
+                    'edu_type':int(request.POST['edu_type']),
+                    'edu':int(request.POST['edu']),
+                    'art_exp':int(request.POST['art_exp']),
                     'edu_prof':request.POST['edu_prof'],
-                    'phone':request.POST['phone'],
-                    'cinema_freq':request.POST['cinema_freq'],
+                    'cinema_freq':int(request.POST['cinema_freq']),
                     'cinema_genre':request.POST['cinema_genre'],
                     })
         images = Image.objects.filter(stimul=stimul)
@@ -45,7 +44,7 @@ def submit(request):
                     user = profile,
                     image = image,
                     defaults = {
-                        'pos' = request.POST['images['+str(image.id)+']']
+                        'pos': int(request.POST['images['+str(image.id)+']']),
                         }
                     )
 
