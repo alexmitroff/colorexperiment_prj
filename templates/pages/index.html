@@ -1,18 +1,22 @@
 {% extends 'base/base.html' %}
 {% block main %}
 <form id="sheet">
-    <div class="number"><span>1</span></div>
-    <h2>Заполните анкету</h2>
-    {% csrf_token %}
-    {{ form.as_p }}
+
+	<section>    
+		<h2>Заполните анкету</h2>
+    		{% csrf_token %}
+    		{{ form.as_p }}
+	</section>
+
+	<section>
+		<h2>Выберите изображение</h2>
+		<div>
+			<input type="checkbox" name="img1" id="id_img1" />
+			<label for="id_img1"></label>
+		</div>
+	</section>	
+
+
 </form>
 
-<!--
-<div id="images" style="grid-template-columns:repeat({{img_count}}, 1fr)">
-    <div><div id="i1" class="stimul active" onclick="addPosition(this);" data-pos="0"></div></div>
-    <div><div id="i2" class="stimul active" onclick="addPosition(this);" data-pos="0"></div></div>
-    <div><div id="i3" class="stimul active" onclick="addPosition(this);" data-pos="0"></div></div>
-    <div><div id="i4" class="stimul active" onclick="addPosition(this);" data-pos="0"></div></div>
-    <div><div id="i5" class="stimul active" onclick="addPosition(this);" data-pos="0"></div></div>
-    </div> ->>
 {% endblock %}
