@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% block main %}
 <form id="sheet">
-
+        <h1>{{stimul.name}}</h1>
 	<section>    
 		<h2>Заполните анкету</h2>
     		{% csrf_token %}
@@ -13,6 +13,10 @@
 		<div>
 			<input type="checkbox" name="img1" id="id_img1" />
 			<label for="id_img1"></label>
+
+                        {% for i in images %}
+                            <img src="{{i.image.url}}">
+                        {% empty %}{% endfor %}
 		</div>
 	</section>	
 
