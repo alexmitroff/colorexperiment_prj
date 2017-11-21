@@ -3,6 +3,9 @@ from experiment.forms import UserInfoForm
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from experiment.models import *
+from django.shortcuts import get_object_or_404
+from excel_response import ExcelResponse
+
 # Create your views here.
 
 def index(request):
@@ -49,8 +52,20 @@ def submit(request):
                     )
 
             if a_created == False:
-                return HttpResponce('')
+                return HttpResponse('1')
                 
-        return HttpResponse('OK!')
+        return HttpResponse('0')
     else:
         return HttpResponseRedirect('/')
+
+def result(request, stimul_id):
+    user = -1
+    stimul = get_object_or_404(Stimul, pk = stimul_id)
+    answers = Answer.objects.filter(stimul = stimul)
+    
+    users = answers.distinct('user').values('user')
+
+    s_fields = Stimul._meta.get_fields()
+    
+    print(users)
+    return HttpResponse('Ok!')
