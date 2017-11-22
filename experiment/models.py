@@ -58,11 +58,25 @@ class UserInfo(models.Model):
         return "%s %s" % (self.lastname, self.firstname)
 
 
+class StimulType(models.Model):
+    pos = models.PositiveIntegerField( u"позиция",
+            default=0)
+    name = models.CharField( u"Название", max_length=50)
+    class Meta:
+        ordering = ['pos']
+        verbose_name = u"Тип стимула"
+        verbose_name_plural = u"Типы стимулов"
+    
+    def __str__(self):
+        return self.name
+
 class Stimul(models.Model):
     pos = models.PositiveIntegerField( u"позиция",
             default=0)
     show = models.BooleanField(u"доступен",
             default=True)
+    stype =  models.ForeignKey("StimulType", 
+            on_delete=models.CASCADE, default=0)
     name = models.CharField( u"Название", max_length=50)
 
     class Meta:
@@ -95,22 +109,6 @@ def image_path(instance, filename):
     if len(filename) > 100:
         filename = filename[:99]
     return "{0}/{1}".format(instance.itype.id, filename)
-
-def optimize_image(obj):
-    img = Img.open(StringIO.StringIO(obj.image.read()))
-    if img.mode != 'RGB':
-        img = img.convert('RGB')
-    img_width = 500
-    img.thumbnail((img_width,
-                   img_width * obj.image.height / obj.image.width),
-                   Img.ANTIALIAS)
-    output = StringIO.StringIO()
-    img.save(output, format='JPEG', quality=80)
-    output.seek(0)
-    obj.image= InMemoryUploadedFile(output,'ImageField',
-            "%s.jpg" %obj.image.name.split('.')[0],
-            'image/jpeg', output.len, None)
-    return obj
 
 class Image(models.Model):
     stimul = models.ForeignKey("Stimul",

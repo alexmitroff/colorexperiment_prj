@@ -12,6 +12,7 @@ class StimulAdmin(admin.ModelAdmin):
         ]
 
 admin.site.register(Stimul, StimulAdmin)    
+admin.site.register(StimulType)    
 admin.site.register(Answer)    
 admin.site.register(UserInfo)
 admin.site.register(ImageType)

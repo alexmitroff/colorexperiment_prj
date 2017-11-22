@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
+from django.conf.urls import include
 from django.contrib import admin
 
 from django.conf.urls.static import static
@@ -24,6 +25,7 @@ from experiment import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name="index"),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^api/submit/$', views.submit, name="submit"),
     url(r'^excel/(?P<stimul_id>\d+)/$', views.result, name="result"),
 ]

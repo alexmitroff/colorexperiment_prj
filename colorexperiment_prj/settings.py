@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'registration',
     'experiment',
 ]
 
@@ -116,3 +117,5 @@ STATIC_ROOT = STAT_ROOT
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = MEDI_DIR
+
+ACCOUNT_ACTIVATION_DAYS = 7
