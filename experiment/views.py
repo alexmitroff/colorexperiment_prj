@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404
 
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
 from experiment.forms import *
@@ -10,7 +12,13 @@ from experiment.models import *
 
 from excel_response import ExcelResponse
 
+
+
 # Create your views here.
+
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect('/')
 
 @login_required
 def index(request):
@@ -21,9 +29,11 @@ def index(request):
             user=user,
             )
     ui_form = UserInfoForm(instance=ui)
+    stimuli = Stimul.objects.filter(show=True)
     var = {
             'u_form':u_form,
             'ui_form':ui_form,
+            'stimuli':stimuli,
             }
     return render(request, template, var)
 

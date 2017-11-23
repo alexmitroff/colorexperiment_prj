@@ -13,7 +13,10 @@ body{
 body > main{
 	flex-grow:1;
 	padding:1rem;
-
+    font-family: -apple-system, BlinkMacSystemFont,
+                “Segoe UI”, “Roboto”, “Oxygen”, “Ubuntu”, “Cantarell”,
+                “Fira Sans”, “Droid Sans”, “Helvetica Neue”,
+                sans-serif;
 }
 
 .card{
@@ -46,6 +49,18 @@ h2{
 .profile form > div{
     margin-bottom:1rem;
 }
+
+.profile > h2:after{
+    font-family:FontAwesome;
+    content: "\f00c";
+    color:green;
+} 
+
+.edit > h2:after{
+    font-family:FontAwesome;
+    content: "\f040";
+    color:yellow;
+} 
 
 .profile form > div > div{
     display:flex;

@@ -1,12 +1,12 @@
 {% extends 'base/base.html' %}
 {% block main %}
 {% if user.is_authenticated %}
-    <h1>Welcome, {{ user.get_username }}!</h1>
+<h1>Welcome, {{ user.get_username }}! <a href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i></a></h1>
 {% else %}
    <h1>Welcome, new user. Please log in.</h1>
 {% endif %}
 <section class="card small profile">
-    <h2>Профиль</h2>
+    <h2>Профиль </h2>
     <form id="id_user" action="{% url 'change_user' %}">
         {% csrf_token %}
         {% for field in u_form %}
