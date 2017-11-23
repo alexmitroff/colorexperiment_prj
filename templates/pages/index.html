@@ -1,29 +1,65 @@
 {% extends 'base/base.html' %}
 {% block main %}
-<h1>{{stimul.name}}</h1>
-<form id="sheet">
-<section class="card" id="profile">
-    <h2>Заполните анкету</h2>
-    {% csrf_token %}
-    {{ form.as_p }}
+{% if user.is_authenticated %}
+    <h1>Welcome, {{ user.get_username }}!</h1>
+{% else %}
+   <h1>Welcome, new user. Please log in.</h1>
+{% endif %}
+<section class="card small profile">
+    <h2>Профиль</h2>
+    <form id="id_user" action="{% url 'change_user' %}">
+        {% csrf_token %}
+        {% for field in u_form %}
+        <div>
+            {{ field.errors }}
+            <div>{{ field.label_tag }} {{ field }}</div>
+            {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </form>
+    <form id="id_userinfo" action="{% url 'change_userinfo' %}">
+        {% csrf_token %}
+        {% for field in ui_form %}
+        <div>
+            {{ field.errors }}
+            <div>{{ field.label_tag }} {{ field }}</div>
+            {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </form>
 </section>
-<section class="card">
-  <h2>Выберите изображение, которое вам больше нравится</h2>
-  <div id="images" style="grid-template-columns:repeat({{img_count}}, 1fr)">
-	  {% for image in images %}
-    <div>
-	    <input type="checkbox" name="{{image.id}}" id="id_{{image.id}}" value="0" required>
-	    <label for="id_{{image.id}}" class="stimul"
-				  style="background-image:url('{{image.image.url}}');"
-		    ></label>
-    </div>
-    	{% empty %}
-	{% endfor %}
-  </div>
+<section class="card small">
+    <h2>Доступные стимулы</h2>
+    <ul>
+        {% for s in stimuli%}
+        <li><a href="#!">{{s.name}}</a></li>
+        {% empty %}
+        <li>Вы уже пощупали все стимулы! Спасибо вам огромное!</li>
+        {% endfor %}
+    </ul>
 </section>
-<section id="actions">
-	<input type="button" id="reset" class="btn btn-danger" value="Сбросить выбор" />
-	<input type="submit" class="btn btn-submit" value="Отправить на сервер" />
-</section>
-</form>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    function send_data($form){
+            var profile = $(".profile");
+            profile.addClass('edit');
+            var data = $form.serialize();
+            $.ajax($form.attr('action'), {data:data, type:'POST'}).done(function(){
+                profile.removeClass("edit");
+            }); 
+    }
+    
+    $(document).ready(function(){
+        $('#id_user, #id_userinfo').change(function(){
+            send_data($(this));
+        });
+
+    });
+</script>
 {% endblock %}

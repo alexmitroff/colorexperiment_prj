@@ -27,6 +27,8 @@ urlpatterns = [
     url(r'^$', views.index, name="index"),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^api/submit/$', views.submit, name="submit"),
+    url(r'^api/change/user/$', views.change_user, name="change_user"),
+    url(r'^api/change/user-info/$', views.change_userinfo, name="change_userinfo"),
     url(r'^excel/(?P<stimul_id>\d+)/$', views.result, name="result"),
 ]
 

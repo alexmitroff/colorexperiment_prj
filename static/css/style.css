@@ -25,23 +25,65 @@ body > main{
 	margin-right:auto;
 }
 
+h1,
 h2{
 	margin-bottom:2rem;
 	text-align:center;
 }
 
-form p {
-	display:flex;
-	justify-content:space-between;
+.small{
+    width:40rem;
+}
+
+.profile{
+    border:.2rem solid green;
+}
+
+.edit{
+    border-color:yellow;
+}
+
+.profile form > div{
+    margin-bottom:1rem;
+}
+
+.profile form > div > div{
+    display:flex;
+    justify-content:space-between;
+}
+.profile form > div > div input,
+.profile form > div > div select{
+    flex-grow:1;
+    padding-right:1rem;
 }
 
 textarea,
 select,
 input{
 	background:none;
-	border:.1rem solid #ddd;
+    border:none;
+	border-bottom:.2rem solid #ccc;
 	padding:.2rem;
 	margin-bottom:.5rem;
+    text-align:right;
+}
+
+textarea:hover,
+select:hover,
+input:hover,
+textarea:focus,
+select:focus,
+input:focus{
+    border-color:#444;
+}
+
+.help{
+    font-size:.7rem;
+    padding:.5rem;
+    border:.1rem solid #eee;
+    background-color:#FFF9CD;
+    text-align:right;
+    margin-bottom:.5rem;
 }
 
 input[type=checkbox]{

@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 
+from django.contrib.auth.models import User
+
 from PIL import Image as Img
 from io import StringIO
 
@@ -30,32 +32,32 @@ class UserInfo(models.Model):
             (0, u"Нет"),
             (1, u"Да"),
             )
-
-    lastname = models.CharField( u"фамилия", max_length=50)
-    firstname = models.CharField( u"имя", max_length=50) 
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=0)
     gender = models.IntegerField( u"пол", default=0, 
             choices=GENDER_CHOISES )
-    age = models.PositiveIntegerField( u"возраст", default=0)
+    age = models.IntegerField( u"возраст", default=0)
     edu_type = models.IntegerField( u"тип образования", 
             default=0, choices=EDU_TYPES_CHOISES )
     edu = models.IntegerField( u"образование", 
             default=0, choices=EDU_CHOISES)
-    art_exp = models.PositiveIntegerField(u"художественная подготовка",
+    art_exp = models.IntegerField(u"художественная подготовка",
             default=0, choices=ART_CHOISES)
     edu_prof = models.CharField( u"профиль подготовки", 
             max_length=140)
-    email = models.EmailField(u"электронная почта", max_length=254)
-    phone = models.PositiveIntegerField( u"телефон", blank=True, null=True)
-    cinema_freq = models.PositiveIntegerField( u"частота походов в кинотеатр", default=0)
+    phone = models.CharField( u"телефон", max_length=20,
+            blank=True, null=True)
+    cinema_freq = models.IntegerField( u"частота походов в кинотеатр",
+            default=0, help_text="штуки в месяц")
     cinema_genre = models.CharField( u"любимый жанр кино", max_length=140)
 
     class Meta:
-        ordering = ['lastname', 'firstname']
-        verbose_name = u"Информация о подопытном"
-        verbose_name_plural = u"Информация о подопытных"
+        ordering = ['user']
+        verbose_name = u"Профиль"
+        verbose_name_plural = u"Профили"
 
     def __str__(self):
-        return "%s %s" % (self.lastname, self.firstname)
+        return "%s %s" % (self.user.last_name, self.user.first_name)
 
 
 class StimulType(models.Model):
