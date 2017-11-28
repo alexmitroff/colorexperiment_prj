@@ -1,6 +1,14 @@
 *{
 	margin:0;
 	padding:0;
+	box-sizing:border-box;
+}
+
+html{
+    	font-family: -apple-system, BlinkMacSystemFont,
+                     “Segoe UI”, “Roboto”, “Oxygen”, “Ubuntu”, “Cantarell”,
+                     “Fira Sans”, “Droid Sans”, “Helvetica Neue”,
+                     sans-serif;
 }
 
 body{
@@ -13,10 +21,10 @@ body{
 body > main{
 	flex-grow:1;
 	padding:1rem;
-    font-family: -apple-system, BlinkMacSystemFont,
-                “Segoe UI”, “Roboto”, “Oxygen”, “Ubuntu”, “Cantarell”,
-                “Fira Sans”, “Droid Sans”, “Helvetica Neue”,
-                sans-serif;
+}
+
+a, input, select, label{
+	transition: all .3s ease-out 0s;
 }
 
 .card{
@@ -112,6 +120,27 @@ input[type=checkbox]{
 #images{
 	display:grid;
 	grid-gap:1rem;
+	grid-template-columns:repeat(3, 1fr);
+}
+
+.back{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	background-color:#ccc;
+	color:#444;
+	font-size:2rem;
+	line-height:2rem;
+	padding:1rem 1rem 1rem .8rem;
+	height:3rem;
+	width:3rem;
+	text-decoration:none;
+}
+
+.back:focus,
+.back:hover{
+	background-color:#444;
+	color:#ccc;
 }
 
 .stimul{

@@ -1,10 +1,12 @@
 {% extends 'base/base.html' %}
 {% block main %}
-<h1>{{stimul.name}}</h1>
+<a class="back" href="{% url 'index' %}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+<h1>{{stimulus.name}}</h1>
 <form id="sheet">
+    {% csrf_token %}
 <section class="card">
   <h2>Выберите изображение, которое вам больше нравится</h2>
-  <div id="images" style="grid-template-columns:repeat({{img_count}}, 1fr)">
+  <div id="images">
 	  {% for image in images %}
     <div>
 	    <input type="checkbox" name="{{image.id}}" id="id_{{image.id}}" value="0" required>
@@ -25,7 +27,6 @@
 
 {% block scripts %}
     <script type="text/javascript">
-	var count = {{img_count}};
         var p = 0;
 
         function clear_form(){
@@ -51,19 +52,16 @@
 
 		$( "form" ).on( "submit", function( event ) {
 			  event.preventDefault();
-			  var profile = $('form').serializeArray(),
-			      req = {},
+			  var req = {},
 			      imgs = {};
-			  profile.forEach(function(item, i, profile){
-				req[item.name] = item.value;
-			  });
 			  $( ':checkbox' ).each(function(){
 			  	var n = $(this).attr('name'),
 				    v = $(this).attr('value');
 				    imgs[n] = v;
 			  });
 			  req["images"] = imgs;
-			  req["stimul"] = {{ stimul.id }};
+			  req["stimulus"] = {{ stimulus.id }};
+			  req["csrfmiddlewaretoken"] = $('[name=csrfmiddlewaretoken]').val();
 			  $.ajax({
 				  url: "{% url 'submit' %}",
 				data:req,

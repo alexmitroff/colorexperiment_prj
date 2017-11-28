@@ -144,14 +144,13 @@ def image_delete(sender, instance, **kwargs):
 class Answer(models.Model):
     pos = models.PositiveIntegerField( u"позиция",
             default=0)
-    user = models.ForeignKey("UserInfo",
-            on_delete=models.CASCADE ) 
-    stimul = models.ForeignKey("Stimul",
-            on_delete=models.CASCADE ) 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     image = models.ForeignKey("Image",
             on_delete=models.CASCADE )
+    stimulus = models.ForeignKey("Stimul",
+            on_delete=models.CASCADE, default=0 ) 
     class Meta:
-        ordering = ['stimul','user','pos']
+        ordering = ['stimulus','user','pos']
         verbose_name = u'Ответ'
         verbose_name_plural = u'Ответы'
     def __srt__(self):

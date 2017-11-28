@@ -35,10 +35,20 @@
 <section class="card small">
     <h2>Доступные стимулы</h2>
     <ul>
-        {% for s in stimuli%}
-        <li><a href="#!">{{s.name}}</a></li>
+        {% for s in stimuli_n%}
+	<li><a href="{% url 'stimulus' s.id %}">{{s.name}}</a></li>
         {% empty %}
-        <li>Вы уже пощупали все стимулы! Спасибо вам огромное!</li>
+	<li>Вы уже пощупали все стимулы!<br/>Спасибо вам огромное! :)</li>
+        {% endfor %}
+    </ul>
+</section>
+<section class="card small">
+    <h2>Пройденные стимулы</h2>
+    <ul>
+        {% for s in stimuli_p%}
+	<li><a href="{% url 'stimulus' s.id %}">{{s.name}}</a></li>
+        {% empty %}
+        <li>Вы еще ничего не щупали :(</li>
         {% endfor %}
     </ul>
 </section>

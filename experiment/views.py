@@ -30,10 +30,13 @@ def index(request):
             )
     ui_form = UserInfoForm(instance=ui)
     stimuli = Stimul.objects.filter(show=True)
+    answers = Answer.objects.filter(user = request.user)
+    stimuli_passed = Stimul.objects.filter(answer__user = request.user)
     var = {
             'u_form':u_form,
             'ui_form':ui_form,
-            'stimuli':stimuli,
+            'stimuli_n':stimuli,
+            'stimuli_p':stimuli_passed,
             }
     return render(request, template, var)
 
@@ -41,12 +44,12 @@ def index(request):
 def submit(request):
     if request.method == 'POST':
         print(request.POST)
-        stimul = Stimul.objects.get(pk=int(request.POST['stimul']))
-        images = Image.objects.filter(stimul=stimul)
+        stimulus = get_object_or_404(Stimul, pk = int(request.POST['stimulus']))
+        images = Image.objects.filter(stimul = stimulus)
         for image in images:
             a, a_created = Answer.objects.get_or_create(
-                    stimul = stimul,
-                    user = profile,
+                    user = request.user,
+                    stimulus = stimulus,
                     image = image,
                     defaults = {
                         'pos': int(request.POST['images['+str(image.id)+']']),
@@ -58,7 +61,7 @@ def submit(request):
                 
         return HttpResponse('0')
     else:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/stimulus/'+stimulus.id)
 
 @login_required
 def change_user(request):
@@ -96,9 +99,9 @@ def change_userinfo(request):
 
 
 @login_required
-def result(request, stimul_id):
+def result(request, stimulus_id):
     user = -1
-    stimul = get_object_or_404(Stimul, pk = stimul_id)
+    stimul = get_object_or_404(Stimul, pk = stimulus_id)
     answers = Answer.objects.filter(stimul = stimul)
     
     users = answers.distinct('user').values('user')
@@ -107,3 +110,14 @@ def result(request, stimul_id):
     
     print(users)
     return HttpResponse('Ok!')
+
+@login_required
+def stimulus(request, stimulus_id):
+    template = 'pages/stimulus.html'
+    stimulus = get_object_or_404(Stimul, pk = stimulus_id)
+    images = Image.objects.filter(stimul = stimulus)
+    var = {
+            'stimulus':stimulus,
+            'images':images,
+            }
+    return render(request, template, var)
