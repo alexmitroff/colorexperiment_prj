@@ -29,9 +29,13 @@ def index(request):
             user=user,
             )
     ui_form = UserInfoForm(instance=ui)
-    stimuli = Stimul.objects.filter(show=True)
-    answers = Answer.objects.filter(user = request.user)
-    stimuli_passed = Stimul.objects.filter(answer__user = request.user)
+    try:
+        stimuli_passed = Stimul.objects.filter(stimuluspassed__user = request.user)
+        sp_vl = stimuli_passed.values_list('id')
+        stimuli = Stimul.objects.filter(show=True).exclude(id__in = sp_vl)
+    except:
+        stimuli_passed = []
+        stimuli = Stimul.objects.filter(show=True)
     var = {
             'u_form':u_form,
             'ui_form':ui_form,
@@ -46,6 +50,14 @@ def submit(request):
         print(request.POST)
         stimulus = get_object_or_404(Stimul, pk = int(request.POST['stimulus']))
         images = Image.objects.filter(stimul = stimulus)
+        passed, p_created = StimulusPassed.objects.get_or_create(
+                user=request.user,
+                stimulus = stimulus,
+                )
+
+        if p_created == False:
+            return HttpResponse('1')
+
         for image in images:
             a, a_created = Answer.objects.get_or_create(
                     user = request.user,

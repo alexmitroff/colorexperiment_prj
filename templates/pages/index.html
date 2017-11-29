@@ -46,7 +46,7 @@
     <h2>Пройденные стимулы</h2>
     <ul>
         {% for s in stimuli_p%}
-	<li><a href="{% url 'stimulus' s.id %}">{{s.name}}</a></li>
+	<li>{{s.name}}</li>
         {% empty %}
         <li>Вы еще ничего не щупали :(</li>
         {% endfor %}

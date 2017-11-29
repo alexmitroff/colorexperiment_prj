@@ -154,4 +154,16 @@ class Answer(models.Model):
         verbose_name = u'Ответ'
         verbose_name_plural = u'Ответы'
     def __srt__(self):
-        return "%s %s %s" % (self.stimul, self.user, self.image)
+        return "%s %s %s" % (self.stimulus, self.user, self.image)
+
+
+class StimulusPassed(models.Model):    
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
+    stimulus = models.ForeignKey("Stimul",
+            on_delete=models.CASCADE, default=0 ) 
+    class Meta:
+        ordering = ['stimulus','user']
+        verbose_name = u'Пройденный стимул'
+        verbose_name_plural = u'Пройденные стимулы'
+    def __str__(self):    
+        return "%s %s" % (self.stimulus, self.user)
