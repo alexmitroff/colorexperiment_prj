@@ -11,6 +11,19 @@ html{
                      sans-serif;
 }
 
+.shadow{
+}
+
+a{
+	text-decoration:none;
+	color:#03a9f4;
+}
+
+a:hover,
+a:focus{
+	color:#0277bd;
+}
+
 body{
 	color:#444;
 	display:flex;
@@ -21,6 +34,25 @@ body{
 body > main{
 	flex-grow:1;
 	padding:1rem;
+}
+
+body > header{
+	background-color:#444;
+	color:#eee;
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	padding:1rem;
+}
+
+body > header h1{
+	font-size:1rem;
+	line-height:1rem;
+	margin:0;
+}
+
+body > header a{
+	color:white;
 }
 
 a, input, select, label{
@@ -34,6 +66,7 @@ a, input, select, label{
 	margin-bottom:2rem;
 	margin-left:auto;
 	margin-right:auto;
+	box-shadow:0 2rem 5rem -2.5rem rgba(0,0,0,0.25),0rem 0.3rem 0.5rem -0.4rem rgba(0,0,0,0.4);
 }
 
 h1,
@@ -47,7 +80,7 @@ h2{
 }
 
 .profile{
-    border:.2rem solid green;
+    border:.1rem solid green;
 }
 
 .edit{
@@ -202,4 +235,17 @@ input[type=checkbox]:invalid + label{
 .btn-submit:focus,
 .btn-submit:hover{
 	background-color:#1b5e20;
+}
+
+.stimuli{
+	list-style-type:none;
+}
+.stimuli > li{
+	padding:1rem;
+	border-top:.1rem solid #ddd;
+}
+
+.stimuli > li > a:before{
+        font-family:'FontAwesome';
+	content:'\f03e\0020';
 }

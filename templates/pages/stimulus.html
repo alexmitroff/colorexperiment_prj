@@ -1,7 +1,9 @@
 {% extends 'base/base.html' %}
+{% block head %}
+<a href="{% url 'index' %}"><i class="fa fa-chevron-left" aria-hidden="true"></i> НАЗАД</a> | Стимул: {{stimulus.name}}
+{% endblock %}
+
 {% block main %}
-<a class="back" href="{% url 'index' %}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
-<h1>{{stimulus.name}}</h1>
 <form id="sheet">
     {% csrf_token %}
 <section class="card">

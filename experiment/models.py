@@ -129,7 +129,6 @@ class Image(models.Model):
             this = Image.objects.get(id=self.id)
             if this.image != self.image:
                 this.image.delete(save=False)
-                self = optimize_image(self)
         except:
             pass
         super(Image, self).save(*args, **kwargs)
