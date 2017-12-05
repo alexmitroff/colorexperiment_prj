@@ -20,6 +20,10 @@ body > main{
 	flex-grow:1;
 }
 
+a, input, select{
+	transition: all .3s ease-out 0s;
+}
+
 h1, h2 {
 	text-align:center;
 }
@@ -49,4 +53,19 @@ form section > div {
 	background-size: contain;
 	padding-top:67%;
 	cursor:pointer;
+	transition: all .3s ease-out 0s;
+	background-color:#eee;
+}
+
+input, select{
+	border:.1rem solid #ddd;
+}
+
+input[type=checkbox]{
+	display:none;
+}
+
+input[type=checkbox]:checked + label .image{
+	background-color:#444;
+	background-blend-mode:overlay;
 }

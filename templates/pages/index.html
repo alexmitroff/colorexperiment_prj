@@ -15,7 +15,8 @@
 			<label for="id_img1"></label> -->
 
                         {% for i in images %}
-				<label>
+			<input id="id_{{i.id}}" type="checkbox" />
+			<label for="id_{{i.id}}">
 					<div class="image" style="background-image:url({{i.image.url}});"></div>
 				</label>
                         {% empty %}{% endfor %}

@@ -15,7 +15,7 @@ class UserInfo(models.Model):
             )
 
     EDU_TYPES_CHOISES = (
-            (0, u"Гумунитарный"),
+            (0, u"Гуманитарный"),
             (1, u"Технический"),
             )
 
