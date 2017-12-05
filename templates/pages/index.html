@@ -11,19 +11,50 @@
 	<section>
 		<h2>Выберите изображение</h2>
 		<div>
-			<!-- <input type="checkbox" name="img1" id="id_img1" />
-			<label for="id_img1"></label> -->
-
                         {% for i in images %}
-			<input id="id_{{i.id}}" type="checkbox" />
+			<input id="id_{{i.id}}" type="checkbox" value="0" />
 			<label for="id_{{i.id}}">
 					<div class="image" style="background-image:url({{i.image.url}});"></div>
 				</label>
                         {% empty %}{% endfor %}
+		</div>
+		<div>
+			<input type="button" id="id_reset" value="Сбросить выбор" />
+			<input type="submit" id="id_submit" value="отправить на сервер" />
 		</div>
 	</section>	
 
 
 </form>
 
+{% endblock %}
+{% block scripts %}
+<script>
+var pos = 0;
+
+function reset_images(){
+	$("[type=checkbox]:checked").prop('checked',false).attr('disabled',false).val(0);
+	pos = 0;
+}
+
+$(document).ready(function(){
+	reset_images();
+
+	$('[type=checkbox]').change(function(){
+		if(this.checked){
+			pos++;
+			$(this).attr('value', pos);
+			$(this).attr('disabled',true);	
+		}
+	});
+
+	$('#id_reset').click(function(){
+		reset_images();
+	});
+
+	$('form').on('submit', function(event){
+		event.preventDefault;
+	});
+});
+</script>
 {% endblock %}
