@@ -17,7 +17,6 @@ from .secret import *
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STAT_DIR = os.path.join(BASE_DIR, "static")
-STAT_ROOT = ''
 MEDI_DIR = os.path.join(BASE_DIR, "media")
 TEMPL_DIR = os.path.join(BASE_DIR, "templates")
 
@@ -83,8 +82,12 @@ WSGI_APPLICATION = 'colorexperiment_prj.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.psycopg2',
+        'NAME':DB_NAME,
+	'USER':DB_USER,
+	'PASSWD':DB_PASSWD,
+	'HOST':DB_HOST,
+	'PORT':DB_PORT,
     }
 }
 
@@ -117,7 +120,7 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (STAT_DIR,)
-STATIC_ROOT = STAT_ROOT
+STATIC_ROOT = DJ_STATIC
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = MEDI_DIR
