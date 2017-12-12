@@ -24,6 +24,7 @@ from experiment import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name="index"),
+    url(r'^api/v.1/submit/$', views.submit, name="submit"),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

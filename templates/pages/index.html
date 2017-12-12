@@ -12,7 +12,7 @@
 		<h2>Выберите изображение</h2>
 		<div>
                         {% for i in images %}
-			<input id="id_{{i.id}}" type="checkbox" value="0" />
+			<input id="id_{{i.id}}" name="{{i.id}}" type="checkbox" value="0" required />
 			<label for="id_{{i.id}}">
 					<div class="image" style="background-image:url({{i.image.url}});"></div>
 				</label>
@@ -53,7 +53,32 @@ $(document).ready(function(){
 	});
 
 	$('form').on('submit', function(event){
-		event.preventDefault;
+		event.preventDefault();
+		var profile = $('form').serializeArray(),
+			req = {},
+		       imgs = {};
+		profile.forEach(function(item, i, profile){
+			req[item.name] = item.value;
+		});
+		console.log(profile);
+		$(':checked').each(function(){
+			var n = $(this).attr('name'),
+			    v = $(this).attr('value');
+			if (n) {
+				imgs[n] = v;
+			}
+		});
+		req['images'] = imgs;
+		req['stimul'] = {{stimul.id}};
+		console.log(req);
+		$.ajax({
+			url: "{% url 'submit' %}",
+			data: req,
+			method: "POST",
+			dataType: "json",
+		}).done(function(result){
+			console.log(result);
+		});
 	});
 });
 </script>
