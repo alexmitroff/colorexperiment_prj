@@ -127,7 +127,7 @@ def result(request, stimulus_id):
 def stimulus(request, stimulus_id):
     template = 'pages/stimulus.html'
     stimulus = get_object_or_404(Stimul, pk = stimulus_id)
-    images = Image.objects.filter(stimul = stimulus)
+    images = Image.objects.filter(stimul = stimulus).order_by('?')
     var = {
             'stimulus':stimulus,
             'images':images,

@@ -249,3 +249,8 @@ input[type=checkbox]:invalid + label{
         font-family:'FontAwesome';
 	content:'\f03e\0020';
 }
+
+.auth form input[type=submit]{
+	color:#444;
+	cursor:pointer;
+}
