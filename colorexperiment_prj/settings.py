@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'colorexperiment_prj.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.psycopg2',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME':DB_NAME,
 	'USER':DB_USER,
-	'PASSWD':DB_PASSWD,
+	'PASSWORD':DB_PASSWD,
 	'HOST':DB_HOST,
 	'PORT':DB_PORT,
     }
