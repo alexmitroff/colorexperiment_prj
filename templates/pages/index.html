@@ -3,33 +3,6 @@
 <i class="fa fa-user-circle-o" aria-hidden="true"></i> {{user.username}}
 {% endblock %}
 {% block main %}
-<section class="card small profile">
-    <h2>Профиль </h2>
-    <form id="id_user" action="{% url 'change_user' %}">
-        {% csrf_token %}
-        {% for field in u_form %}
-        <div>
-            {{ field.errors }}
-            <div>{{ field.label_tag }} {{ field }}</div>
-            {% if field.help_text %}
-                <p class="help">{{ field.help_text|safe }}</p>
-            {% endif %}
-        </div>
-        {% endfor %}
-    </form>
-    <form id="id_userinfo" action="{% url 'change_userinfo' %}">
-        {% csrf_token %}
-        {% for field in ui_form %}
-        <div>
-            {{ field.errors }}
-            <div>{{ field.label_tag }} {{ field }}</div>
-            {% if field.help_text %}
-                <p class="help">{{ field.help_text|safe }}</p>
-            {% endif %}
-        </div>
-        {% endfor %}
-    </form>
-</section>
 <section class="card small">
     <h2>Доступные стимулы</h2>
     <ul class="stimuli">
@@ -54,20 +27,5 @@
 
 {% block scripts %}
 <script type="text/javascript">
-    function send_data($form){
-            var profile = $(".profile");
-            profile.addClass('edit');
-            var data = $form.serialize();
-            $.ajax($form.attr('action'), {data:data, type:'POST'}).done(function(){
-                profile.removeClass("edit");
-            }); 
-    }
-    
-    $(document).ready(function(){
-        $('#id_user, #id_userinfo').change(function(){
-            send_data($(this));
-        });
-
-    });
 </script>
 {% endblock %}

@@ -15,7 +15,9 @@
 		{% else %}
    		<h1>Welcome, new user. Please log in.</h1>
 		{% endif %}
-		<p><a href="{% url 'logout' %}">ВЫХОД <i class="fa fa-sign-out" aria-hidden="true"></i></a></p>
+        <p>
+        <a class="profile-link" href="{% url 'profile' %}">Профиль</a>
+        <a href="{% url 'logout' %}">ВЫХОД <i class="fa fa-sign-out" aria-hidden="true"></i></a></p>
 	</header>
         <main>
             {% block main %}{% endblock %}

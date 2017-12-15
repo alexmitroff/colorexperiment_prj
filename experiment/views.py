@@ -23,12 +23,6 @@ def logout_user(request):
 @login_required
 def index(request):
     template = "pages/index.html"
-    user = request.user
-    u_form = UserForm(instance=user)
-    ui, ui_created = UserInfo.objects.get_or_create(
-            user=user,
-            )
-    ui_form = UserInfoForm(instance=ui)
     try:
         stimuli_passed = Stimul.objects.filter(stimuluspassed__user = request.user)
         sp_vl = stimuli_passed.values_list('id')
@@ -37,12 +31,26 @@ def index(request):
         stimuli_passed = []
         stimuli = Stimul.objects.filter(show=True)
     var = {
-            'u_form':u_form,
-            'ui_form':ui_form,
             'stimuli_n':stimuli,
             'stimuli_p':stimuli_passed,
             }
     return render(request, template, var)
+
+@login_required
+def profile(request):
+    template = "pages/profile.html"
+    user = request.user
+    u_form = UserForm(instance=user)
+    ui, ui_created = UserInfo.objects.get_or_create(
+            user=user,
+            )
+    ui_form = UserInfoForm(instance=ui)
+    var = {
+            'u_form':u_form,
+            'ui_form':ui_form,
+            }
+    return render(request, template, var)
+
 
 @login_required
 def submit(request):

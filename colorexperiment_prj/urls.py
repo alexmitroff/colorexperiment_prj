@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^stimulus/(?P<stimulus_id>\d+)/$', views.stimulus, name="stimulus"),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^logout/$', views.logout_user, name="logout"),
+    url(r'^profile/$', views.profile, name="profile"),
     url(r'^api/submit/$', views.submit, name="submit"),
     url(r'^api/change/user/$', views.change_user, name="change_user"),
     url(r'^api/change/user-info/$', views.change_userinfo, name="change_userinfo"),

@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 {% block head %}
-<a href="{% url 'index' %}"><i class="fa fa-chevron-left" aria-hidden="true"></i> НАЗАД</a> | Стимул: {{stimulus.name}}
+<a href="{% url 'index' %}"><i class="fa fa-chevron-left" aria-hidden="true"></i> НА ГЛАВНУЮ</a> | Стимул: {{stimulus.name}}
 {% endblock %}
 
 {% block main %}
@@ -72,7 +72,8 @@
                           }).done(function(result){
                             if(result === 0){
                                 reset_images();
-                                alert('Спасибо за участие в эксперименте! Ваши данные успешно обработаны!');
+                                alert('Ваши данные успешно обработаны!');
+                                window.location.href="/";
                                 reset_images();
                             } else if(result === 1) {
                                 reset_images();

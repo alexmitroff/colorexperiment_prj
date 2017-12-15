@@ -83,6 +83,11 @@ h2{
     border:.1rem solid green;
 }
 
+.profile-link{
+    margin-right:2rem;
+    text-transform:uppercase;
+}
+
 .edit{
     border-color:yellow;
 }
