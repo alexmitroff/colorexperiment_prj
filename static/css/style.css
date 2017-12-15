@@ -180,6 +180,7 @@ input[type=checkbox]{
 	display:block;
 	position:relative;
 	padding-top:67%;
+	background-color:white;
 	background-size:contain;
 	background-repeat:no-repeat;
 	background-position:center;
@@ -189,16 +190,15 @@ input[type=checkbox]{
 
 .stimul:focus,
 .stumil:hover{
-	background-color:#eee;
+	border-color:#ddd;
 }
 
 input[type=checkbox]:checked + label{
-	background-color:#444;
-	background-blend-mode:multiply;
+    opacity:.25;
 }
 
 input[type=checkbox]:invalid + label{
-	border-color:red;
+	border-color:white;
 }
 
 #actions{
@@ -213,6 +213,7 @@ input[type=checkbox]:invalid + label{
 	text-decoration:none;
 	margin-left:2rem;
 	text-transform:uppercase;
+    cursor:pointer;
 }
 
 .btn:first-child{
@@ -220,21 +221,29 @@ input[type=checkbox]:invalid + label{
 }
 
 .btn-danger{
-	background-color:#f44336;
+	background-color:white;
+    border-color:#444;
+    color:#444;
 }
 
 .btn-danger:focus,
 .btn-danger:hover{
-	background-color:#b71c1c;
+	background-color:#f44336;
+	border-color:#f44336;
+    color:white;
 }
 
 .btn-submit{
-	background-color:#4caf50;
+	background-color:#444;
+    border-color:#444;
+    color:#white;
 }
 
 .btn-submit:focus,
 .btn-submit:hover{
-	background-color:#1b5e20;
+	background-color:#4caf50;
+	border-color:#4caf50;
+    color:white;
 }
 
 .stimuli{
