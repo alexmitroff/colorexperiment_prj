@@ -147,7 +147,7 @@ def result(request, stimulus_id):
         age = '-'
         row.append(stimulus.id)
         row.append(stimulus.name)
-        user_info = UserInfo.objects.get(user = answer.user)
+        user_info = UserInfo.objects.get(user = answer.user.id)
         row.append(answer.user.username)
         row.append(' '.join([answer.user.last_name,answer.user.first_name]))
         if user_info.gender:
