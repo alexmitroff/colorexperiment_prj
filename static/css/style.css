@@ -257,11 +257,24 @@ input[type=checkbox]:invalid + label{
 .stimuli > li{
 	padding:1rem;
 	border-top:.1rem solid #ddd;
+    display:flex;
+    justify-content:space-between;
+}
+
+.stimuli > li:nth-child(odd){
+    background-color:#eee;
 }
 
 .stimuli > li > a:before{
         font-family:'FontAwesome';
 	content:'\f03e\0020';
+}
+.stimuli > li > a.excel:before{
+    content: '\f1c3\0020';
+    color:green;
+}
+.stimuli > li > a.excel{
+    color:green;
 }
 
 .auth form input[type=submit]{

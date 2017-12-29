@@ -12,6 +12,8 @@ from experiment.models import *
 
 from excel_response import ExcelResponse
 
+from datetime import datetime as dt
+
 
 
 # Create your views here.
@@ -120,16 +122,53 @@ def change_userinfo(request):
 
 @login_required
 def result(request, stimulus_id):
-    user = -1
-    stimul = get_object_or_404(Stimul, pk = stimulus_id)
-    answers = Answer.objects.filter(stimul = stimul)
-    
-    users = answers.distinct('user').values('user')
+    stimulus = get_object_or_404(Stimul, pk=int(stimulus_id))
+    answers = Answer.objects.filter(stimulus = stimulus)
+    columns = [
+            'stimulus_id',
+            'stimulus_name',
+            'username',
+            'username_full',
+            'gender',
+            'education',
+            'education_type',
+            'art_exp',
+            'age',
+            'image_type',
+            'image_position'
+            ]
+    data = [columns]
+    for answer in answers:
+        row = []
+        gender = '-'
+        edu = '-'
+        edu_type = '-'
+        art_exp = '-'
+        age = '-'
+        row.append(stimulus.id)
+        row.append(stimulus.name)
+        user_info = UserInfo.objects.get(user = answer.user)
+        row.append(answer.user.username)
+        row.append(' '.join([answer.user.last_name,answer.user.first_name]))
+        if user_info.gender:
+            gender = user_info.gender
+        if user_info.edu:
+            edu = user_info.edu
+        if user_info.edu_type:
+            edu_type = user_info.edu_type
+        if user_info.art_exp:
+            art_exp = user_info.art_exp    
+        row.append(gender)
+        row.append(edu)
+        row.append(edu_type)
+        row.append(art_exp)
+        row.append(user_info.age)
+        row.append(answer.image.itype.name)
+        row.append(answer.pos)
+        data.append(row)
 
-    s_fields = Stimul._meta.get_fields()
-    
-    print(users)
-    return HttpResponse('Ok!')
+    file_name = "%s_%s_result" % (dt.today().strftime("%Y%m%d"), stimulus.name )
+    return ExcelResponse(data, file_name)
 
 @login_required
 def stimulus(request, stimulus_id):
