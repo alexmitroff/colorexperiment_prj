@@ -122,7 +122,7 @@ def change_userinfo(request):
 
 @login_required
 def result(request, stimulus_id):
-    stimulus = get_object_or_404(Stimul, pk=int(stimulus_id))
+    stimulus = get_object_or_404(Stimul, id=int(stimulus_id))
     answers = Answer.objects.filter(stimulus = stimulus)
     columns = [
             'stimulus_id',
