@@ -144,20 +144,21 @@ def result(request, stimulus_id):
         edu = '-'
         edu_type = '-'
         art_exp = '-'
-        age = '-'
+        age = 0
         row.append(stimulus.id)
         row.append(stimulus.name)
-        user_info = UserInfo.objects.get(user = answer.user.id)
         row.append(answer.user.username)
         row.append(' '.join([answer.user.last_name,answer.user.first_name]))
-        if user_info.gender:
-            gender = user_info.gender
-        if user_info.edu:
-            edu = user_info.edu
-        if user_info.edu_type:
-            edu_type = user_info.edu_type
-        if user_info.art_exp:
-            art_exp = user_info.art_exp    
+        if UserInfo.objects.filter(user = answer.user).exists():
+            user_info = UserInfo.objects.get(user = answer.user)
+            if user_info.gender:
+                gender = user_info.gender
+            if user_info.edu:
+                edu = user_info.edu
+            if user_info.edu_type:
+                edu_type = user_info.edu_type
+            if user_info.art_exp:
+                art_exp = user_info.art_exp    
         row.append(gender)
         row.append(edu)
         row.append(edu_type)
