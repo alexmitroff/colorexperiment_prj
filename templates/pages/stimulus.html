@@ -1,0 +1,90 @@
+{% extends 'base/base.html' %}
+{% block head %}
+<a href="{% url 'index' %}"><i class="fa fa-chevron-left" aria-hidden="true"></i> НА ГЛАВНУЮ</a> | Стимул: {{stimulus.name}}
+{% endblock %}
+
+{% block main %}
+<form id="sheet">
+    {% csrf_token %}
+<section class="card">
+  <h2>Выберите изображение, которое вам больше нравится</h2>
+  <div id="images">
+	  {% for image in images %}
+    <div>
+	    <input type="checkbox" name="{{image.id}}" id="id_{{image.id}}" value="0" required>
+	    <label for="id_{{image.id}}" class="stimul"
+				  style="background-image:url('{{image.image.url}}');"
+		    ></label>
+    </div>
+    	{% empty %}
+	{% endfor %}
+  </div>
+</section>
+<section id="actions">
+	<input type="button" id="reset" class="btn btn-danger" value="Сбросить выбор" />
+	<input type="submit" class="btn btn-submit" value="Отправить на сервер" />
+</section>
+</form>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        var p = 0;
+
+        function clear_form(){
+            var f = document.getElementByID('sheet');
+            f.reset();
+        }
+	function reset_images(){
+		$('input:checkbox:checked').prop('checked', false).prop('disabled', false).val(0);
+		p = 0;
+	}	
+	$(document).ready(function(){
+		reset_images();
+
+		$('input[type=checkbox]').change(function(){
+			if(this.checked){
+				p++;
+				$(this).attr('value', p);
+				$(this).prop('disabled', true);
+			}
+		});
+
+		$('#reset').click(function(){reset_images()});
+
+		$( "form" ).on( "submit", function( event ) {
+			  event.preventDefault();
+			  var req = {},
+			      imgs = {};
+			  $( ':checkbox' ).each(function(){
+			  	var n = $(this).attr('name'),
+				    v = $(this).attr('value');
+				    imgs[n] = v;
+			  });
+			  req["images"] = imgs;
+			  req["stimulus"] = {{ stimulus.id }};
+			  req["csrfmiddlewaretoken"] = $('[name=csrfmiddlewaretoken]').val();
+			  $.ajax({
+				  url: "{% url 'submit' %}",
+				data:req,
+				method: "POST",
+			   	dataType: "json",
+                          }).done(function(result){
+                            if(result === 0){
+                                reset_images();
+                                alert('Ваши данные успешно обработаны!');
+                                window.location.href="/";
+                                reset_images();
+                            } else if(result === 1) {
+                                reset_images();
+                                alert('Вы уже учавствовали в этом эксперименте!');
+                            } else {
+                                alert('Всё поломалось!')
+                            }
+                          });
+		});
+
+
+	});
+    </script> 
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+{% block head %}
+<i class="fa fa-user-circle-o" aria-hidden="true"></i> {{user.username}}
+{% endblock %}
+{% block main %}
+<section class="card small">
+    <h2>Доступные стимулы</h2>
+    <ul class="stimuli">
+        {% for s in stimuli_n%}
+	<li><a href="{% url 'stimulus' s.id %}">{{s.name}}</a>
+        {% if request.user.is_staff %}
+        <a class="excel" href="{% url 'result' s.id %}">Результат</a>
+        {% endif %}    
+    </li>
+        {% empty %}
+	<li>Вы уже пощупали все стимулы!<br/>Спасибо вам огромное! :)</li>
+        {% endfor %}
+    </ul>
+</section>
+<section class="card small">
+    <h2>Пройденные стимулы</h2>
+    <ul class="stimuli">
+        {% for s in stimuli_p%}
+	<li>{{s.name}}
+        {% if request.user.is_staff %}
+        <a class="excel" href="{% url 'result' s.id %}">Результат</a>
+        {% endif %}
+    </li>
+        {% empty %}
+        <li>Вы еще ничего не щупали :(</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+</script>
+{% endblock %}

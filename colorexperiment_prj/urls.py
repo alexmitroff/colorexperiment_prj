@@ -14,13 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
+from django.conf.urls import include
 from django.contrib import admin
 
 from django.conf.urls.static import static
 from django.conf import settings
 
+from experiment import views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', views.index, name="index"),
+    url(r'^stimulus/(?P<stimulus_id>\d+)/$', views.stimulus, name="stimulus"),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^logout/$', views.logout_user, name="logout"),
+    url(r'^profile/$', views.profile, name="profile"),
+    url(r'^api/submit/$', views.submit, name="submit"),
+    url(r'^api/change/user/$', views.change_user, name="change_user"),
+    url(r'^api/change/user-info/$', views.change_userinfo, name="change_userinfo"),
+    url(r'^excel/(?P<stimulus_id>\d+)/$', views.result, name="result"),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
